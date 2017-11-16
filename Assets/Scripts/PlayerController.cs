@@ -13,7 +13,18 @@ public class PlayerController : MonoBehaviour {
 	public float tilt;
 	public Boundary boundary;
 
-	// Update is called once per frame
+	public GameObject shot;
+	public Transform shotSpawn;
+	public float fireRate;
+	private float nextFire;
+
+	void Update() {
+		if (Input.GetButton("Fire1") && Time.time > nextFire) {
+			nextFire = Time.time + fireRate;
+			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+		}
+	}
+
 	void FixedUpdate () {
 		// Move the player ship by x and y axis input
 		float moveHorizontal = Input.GetAxis("Horizontal");
